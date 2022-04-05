@@ -1,0 +1,3 @@
+C:\Documenti\cartella1\cartella2
+C:\Documenti\cartella2\cartella1
+C:\Documenti\cartella2\cartella1\sottocartella1
