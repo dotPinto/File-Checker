@@ -2,15 +2,18 @@ package fileChecker;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import java.awt.Desktop;
 
 public class FileChecker {
     
     public static void main(String[] args) {
+        //JFrame frame = new JFrame("FileChecker");
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         ReadFile read = new ReadFile();
         
         String[] paths = new String[read.getFile().length];
@@ -35,9 +38,12 @@ public class FileChecker {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
+
+                //JLabel label = new JLabel(e.getMessage());
+                //frame.add(label);
+                //frame.pack();
+                //frame.setVisible(true);
             }
         }
-
-        
     }
 }
