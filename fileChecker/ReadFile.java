@@ -7,23 +7,21 @@ import java.util.Scanner;
 public class ReadFile {
     public String[] getFile(){
         try {
+            int i;
             File directories = new File("fileChecker/directories.txt");
             Scanner reader = new Scanner(directories);
-            int i = 0;
-            while (reader.hasNextLine()){
+            for (i=0;reader.hasNextLine();i++){
                 String data = reader.nextLine();
-                i++;
             }
             reader.close();
             reader = new Scanner(directories);
             String[] array = new String[i];
-            i=0;
-            while (reader.hasNextLine()){
+            
+            for(i=0;reader.hasNextLine();i++){
                 String data = reader.nextLine();
                 array[i] = data;
             }
             reader.close();
-            System.err.println(array);
             return array;
         } catch (FileNotFoundException e){
             System.out.println("File \'directories.txt\' non trovato, controllare se si trova nella stessa cartella di questo eseguibile");
