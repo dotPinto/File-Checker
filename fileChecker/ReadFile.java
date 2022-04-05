@@ -8,8 +8,10 @@ import java.nio.file.Paths;
 import java.util.Scanner;
 
 import javax.swing.DesktopManager;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.plaf.FileChooserUI;
 
 public class ReadFile {
     public String[] getFile(){
@@ -17,8 +19,9 @@ public class ReadFile {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         try {
             int i;
-            File directories = new File(Paths.get(System.getProperty("user.dir")+"/fileChecker/directories.txt").toString());
-            System.err.println(Paths.get(System.getProperty("user.dir")+"/fileChecker/directories.txt").toString());
+            System.err.println(Paths.get(Paths.get(fileChecker.FileChooserTest.getFile()).toString()));
+            File directories = new File(Paths.get(fileChecker.FileChooserTest.getFile()).toString());
+            //File directories = new File(Paths.get(System.getProperty("user.dir")+"/directories.txt").toString());
             Scanner reader = new Scanner(directories);
             for (i=0;reader.hasNextLine();i++){
                 String data = reader.nextLine();
@@ -40,8 +43,6 @@ public class ReadFile {
             frame.pack();
             frame.setLocation(500, 500);
             frame.setVisible(true);
-            //System.out.println("File \'directories.txt\' non trovato, controllare se si trova nella stessa cartella di questo eseguibile");
-            //e.printStackTrace();
             return new String[0];
         }
     }
