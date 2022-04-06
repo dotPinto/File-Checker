@@ -1,7 +1,0 @@
-C:\Documenti\cartella1\cartella2
-C:\Documenti\cartella2\cartella1
-C:\Documenti\cartella2\cartella1\sottocartella1
-usr/bin/local/folder
-/Users/dotpinto/Desktop/cartella1
-/Users/dotpinto/Desktop/cartella2
-/Users/dotpinto/Desktop/cartella3
