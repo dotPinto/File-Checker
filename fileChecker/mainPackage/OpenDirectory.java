@@ -1,4 +1,4 @@
-package fileChecker;
+package mainPackage;
 
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
