@@ -1,114 +1,88 @@
 package mainPackage;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.DimensionUIResource;
 
 public class FileChooserTest extends JFrame {
-  private static final long serialVersionUID = 1L;
-
-private JTextField filename = new JTextField(), dir = new JTextField();
-
-  //private JButton open = new JButton("Apri");
-  private JButton open = new JButton("Apri");
-
-  //public static JFileChooser c = new JFileChooser();
   
-  JPanel p;
-  
-  public static FileChooserTest fct = new FileChooserTest();
-
-  public static ReadFile rf;
-
   int num = 0;
-  
+  OpenDirectory op;
+  JPanel p;
+  Container cp;
+  JButton refreshButton;
+
   public FileChooserTest() {
-    
-    mainPackage.FileChecker.main(null);
     p = new JPanel();
-    //open.addActionListener(new OpenL());
-    //p.add(open);
-    Container cp = getContentPane();
+    cp = getContentPane();
+    
+    try {
+        ReadFile.getFile();
+    } catch (FileNotFoundException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+
     cp.add(p, BorderLayout.CENTER);
 
     try{
+      //p = new JPanel();
       num = ReadFile.getArray().size();
-      p = new JPanel();
-      p.setLayout(new GridLayout(num,2,5,5));
-      for(Viewer viewer : ReadFile.getArray()){
-        //System.err.println(viewer.label + " " + viewer.openDirectory);
-        
-        JLabel label = new JLabel(viewer.label);
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
-        p.add(label);
+      p.setLayout(new GridLayout(num,2,0,15));
+      cp.add(p, BorderLayout.NORTH);
 
-        JButton button = new JButton("APRI"); //viewer.openDirectory
-        button.setHorizontalAlignment(SwingConstants.CENTER);
-        button.addActionListener(new OpenLine(viewer.openDirectory));
-        p.add(button);
-
+      for(Viewer viewer : ReadFile.getArray()){ 
+          JLabel label = new JLabel(viewer.label);
+          label.setHorizontalAlignment(SwingConstants.CENTER);
+          label.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
+          p.add(label);
+          System.out.println(viewer.label);
+          
+          JButton button = new JButton("APRI"); //viewer.openDirectory
+          button.setHorizontalAlignment(SwingConstants.CENTER);
+          button.addActionListener(new OpenLine(viewer.openDirectory));
+          p.add(button);
+          System.out.println(viewer.openDirectory);
       }
 
-      cp.add(p, BorderLayout.NORTH);
+      refreshButton = new JButton("AGGIORNA");
+      refreshButton.addActionListener(new RefreshWindow());
+      cp.add(refreshButton, BorderLayout.SOUTH);
+      p.validate();
+
     } catch (NullPointerException np){
       np.getCause();
     }
     
     if (num == 0) {
     	//to be added "prova ad aggiornare la pagina!"
-    	JTextField emp = new JTextField("Non ci sono Documenti da Firmare!");
-    	emp.setAlignmentY(SwingConstants.CENTER);
+    	p.setLayout(new FlowLayout());
+    	JTextField emp = new JTextField("Non ci sono Documenti da Firmare!",30);
+    	emp.setToolTipText("Aspettare che si aggiorni oppure chiudere e riaprire l'applicazione");
+    	emp.setAlignmentY(CENTER_ALIGNMENT);
     	emp.setAlignmentX(CENTER_ALIGNMENT);
-      //da migliorare la presentazione!
-      emp.setLocation((int)p.getBounds().getCenterX(),(int)p.getBounds().getCenterY());
+    	emp.setMinimumSize(p.getMaximumSize());
+	    //da migliorare la presentazione!
+	    //emp.setLocation((int)p.getBounds().getCenterX(),(int)p.getBounds().getCenterY());
     	emp.setEditable(false);
     	p.add(emp);
     }
 
     //dir.setEditable(false);
     //filename.setEditable(false);
-
   }
-  
-  /*
-  public void setFile(JFileChooser c) {
-	  c = this.c;
-  }
-  
-  public static String getFile() {
-	  return c.getSelectedFile().getAbsolutePath();
-  }
-
-  class OpenL implements ActionListener {
-    public void actionPerformed(ActionEvent e) {
-      int rVal = c.showOpenDialog(FileChooserTest.this);
-      if (rVal == JFileChooser.APPROVE_OPTION) {
-        c.getSelectedFile().getName();
-        c.getCurrentDirectory().toString();
-        setFile(c);
-        fct.dispose();
-      }
-    }
-  }
-  */
 
   class OpenLine implements ActionListener {
     public String path;
@@ -118,14 +92,24 @@ private JTextField filename = new JTextField(), dir = new JTextField();
     }
 
     public void actionPerformed(ActionEvent e) {
-      //apertura directory con path
-      OpenFile op;
+      //controllo file
       new OpenFile().OpenSingleFile(path);
     }
   }
 
+  class RefreshWindow implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+      //p.removeAll();
+      //cp.removeAll();
+      ReadFile.array.clear();
+      dispose();
+      //main(new String[0]);
+      run(new FileChooserTest(), 450, 220);
+    }
+  }
+
   public static void main(String[] args) {
-    run(fct, 450, 220);
+    run(new FileChooserTest(), 450, 220);
   }
 
   public static void run(JFrame frame, int width, int height) {

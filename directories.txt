@@ -4,3 +4,6 @@ Pippo --- usr/bin/pippo
 Immagini --- C:\Users\Images
 Dev --- /Library/Developer
 Impiegato1 --- C:\Utenti\Impiegato1\Da Firmare
+Pinto --- /Users/dotpinto/Desktop/nuovacartella
+Bho --- /Users/dotpinto/Desktop/cartella senza nome
+Bho2 --- /Users/dotpinto/Desktop/cartella senza nome 2

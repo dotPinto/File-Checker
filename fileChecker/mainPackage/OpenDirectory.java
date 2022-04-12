@@ -1,17 +1,18 @@
 package mainPackage;
 
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.stream.Stream;
 
 public class OpenDirectory {
+
     public boolean isEmpty(Path path) throws IOException {
         if (Files.isDirectory(path)) {
-            try (DirectoryStream<Path> directory = Files.newDirectoryStream(path)) {
-                return !directory.iterator().hasNext();
-            }
+        try (Stream<Path> entries = Files.list(path)) {
+            return !entries.findFirst().isPresent();
         }
+    }
     
         return false;
     }
