@@ -14,7 +14,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.LookAndFeel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.metal.*;
 
 public class FileChooserTest extends JFrame {
   
@@ -27,6 +32,24 @@ public class FileChooserTest extends JFrame {
   public FileChooserTest() {
     p = new JPanel();
     cp = getContentPane();
+
+    String lnfName = "com.jtattoo.plaf.smart.SmartLookAndFeel";
+    try {
+      UIManager.setLookAndFeel(lnfName);
+    } catch (ClassNotFoundException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    } catch (InstantiationException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    } catch (IllegalAccessException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    } catch (UnsupportedLookAndFeelException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
+    SwingUtilities.updateComponentTreeUI(p);
     
     try {
         ReadFile.getFile();
