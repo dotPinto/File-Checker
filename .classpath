@@ -3,5 +3,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry excluding="fileChecker/" kind="src" path=""/>
 	<classpathentry kind="src" path="fileChecker"/>
+	<classpathentry kind="lib" path="/Users/dotpinto/Downloads/JTattoo-1.6.13.jar"/>
+	<classpathentry kind="var" path="JRE_LIB"/>
+	<classpathentry kind="lib" path="/Users/dotpinto/Downloads/flatlaf-2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -3,8 +3,12 @@ package mainPackage;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -19,34 +23,25 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.metal.*;
+import com.formdev.flatlaf.FlatLightLaf;
 
 public class FileChooserTest extends JFrame {
+	public static final String version = "0.1.5";
   
   int num = 0;
   OpenDirectory op;
-  JPanel p;
+  JPanel p,p2;
   Container cp;
   JButton refreshButton;
 
   public FileChooserTest() {
     p = new JPanel();
+    p2 = new JPanel();
     cp = getContentPane();
 
-    String lnfName = "com.jtattoo.plaf.smart.SmartLookAndFeel";
     try {
-      UIManager.setLookAndFeel(lnfName);
-    } catch (ClassNotFoundException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    } catch (InstantiationException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-    } catch (IllegalAccessException e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
+      UIManager.setLookAndFeel( new FlatLightLaf() );
     } catch (UnsupportedLookAndFeelException e1) {
-      // TODO Auto-generated catch block
       e1.printStackTrace();
     }
     SwingUtilities.updateComponentTreeUI(p);
@@ -54,36 +49,40 @@ public class FileChooserTest extends JFrame {
     try {
         ReadFile.getFile();
     } catch (FileNotFoundException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
     }
-
-    cp.add(p, BorderLayout.CENTER);
+    
+    p2.setLayout(new GridLayout(1,2,0,10));
+    JLabel nome = new JLabel(" Nome ");
+    nome.setHorizontalAlignment(SwingConstants.CENTER);
+    p2.add(nome);
+    p2.setAlignmentY(CENTER_ALIGNMENT);
+    p2.add(new JLabel("  "));
+    cp.add(p2);
 
     try{
-      //p = new JPanel();
       num = ReadFile.getArray().size();
       p.setLayout(new GridLayout(num,2,0,15));
-      cp.add(p, BorderLayout.NORTH);
+      p.setLocation(getLocation().x+1,getLocation().y+1);
 
+      // aggiungo al JPanel la label e il pulsante APRI
       for(Viewer viewer : ReadFile.getArray()){ 
           JLabel label = new JLabel(viewer.label);
           label.setHorizontalAlignment(SwingConstants.CENTER);
-          label.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
+          //label.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
           p.add(label);
-          System.out.println(viewer.label);
           
           JButton button = new JButton("APRI"); //viewer.openDirectory
           button.setHorizontalAlignment(SwingConstants.CENTER);
           button.addActionListener(new OpenLine(viewer.openDirectory));
           p.add(button);
-          System.out.println(viewer.openDirectory);
       }
-
+      
+      cp.add(p);
       refreshButton = new JButton("AGGIORNA");
       refreshButton.addActionListener(new RefreshWindow());
       cp.add(refreshButton, BorderLayout.SOUTH);
-      p.validate();
+      cp.validate();
 
     } catch (NullPointerException np){
       np.getCause();
@@ -132,12 +131,15 @@ public class FileChooserTest extends JFrame {
   }
 
   public static void main(String[] args) {
+    FlatLightLaf.setup();
     run(new FileChooserTest(), 450, 220);
   }
 
-  public static void run(JFrame frame, int width, int height) {
+  public static void run(JFrame frame, int width, int height) { 
+	frame.setName("File Checker" + version);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(width, height);
+    frame.setLocationRelativeTo(null);  
     frame.setVisible(true);
   }
 }
