@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -28,6 +29,24 @@ public class ReadFile {
     static void setArray(Viewer v){
         array.add(new Viewer(v.label, v.openDirectory));
     }
+    
+    public static int countLines() {
+
+        Path path = Paths.get(System.getProperty("user.dir")+"/directories.txt");
+
+        int lines = 0;
+        
+        try {
+
+            lines = (int) Files.lines(path).count();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lines;
+
+    }
 
     public static void getFile() throws FileNotFoundException{
         JFrame frame = new JFrame("FileChecker");
@@ -44,8 +63,6 @@ public class ReadFile {
                 if (Files.exists(Paths.get(temp),LinkOption.NOFOLLOW_LINKS) && !(op.isEmpty(Paths.get(temp)))){
                     try{
                         String name[] = data.split(" --- ");
-                        //System.err.println(name[0]+" "+name[1]);
-                        //array.add(new Viewer(name[0],name[1]));
                         setArray(new Viewer(name[0],name[1]));
                     } catch (ArrayIndexOutOfBoundsException e){
                         System.err.println(e + " - Nome della cartella o della directory non presente o non trovato");
