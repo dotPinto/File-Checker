@@ -1,6 +1,1 @@
-Ricordarsi che per la versione 0.1.6 ci possono essere
-massimo 11 directory PIENE visualizzabili contemporaneamente (per il momento).
-
-Formato della directory: 'Alias --- /dir/usr/doc'
-
 Developer --- /Library/Developer
