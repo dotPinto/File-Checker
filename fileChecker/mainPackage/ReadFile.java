@@ -30,6 +30,10 @@ public class ReadFile {
         array.add(new Viewer(v.label, v.openDirectory));
     }
     
+    public static int getNumFiles(String dir) {
+    	return new File(dir).list().length;
+    }
+    
     public static int countLines() {
 
         Path path = Paths.get(System.getProperty("user.dir")+"/directories.txt");

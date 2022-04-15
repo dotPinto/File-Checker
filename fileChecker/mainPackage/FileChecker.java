@@ -19,13 +19,16 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.BevelBorder;
+
 import com.formdev.flatlaf.FlatLightLaf;
+import com.jtattoo.plaf.aero.AeroBorders;
 
 public class FileChecker extends JFrame {
 	public static final String version = "0.1.5";
 	public static int HEIGHT = 700 , WIDTH = 500;
   
-  int num = 0;
+  //int num = 0;
   OpenDirectory op;
   JPanel arrayPanel,mainPanel;
   JButton refreshButton;
@@ -59,16 +62,18 @@ public class FileChecker extends JFrame {
     
     if (ReadFile.getArray().size() > 0 && ReadFile.getArray().size() < 12) {
     	
-	    JLabel nome = new JLabel("File Checker " + version + "\t\t clicca sul pulsante relativo per aprire la cartella");
-	    nome.setBounds(25,0,445,25);
+	    JLabel nome = new JLabel("File Checker " + version );
+	    Font f = nome.getFont();
+        nome.setFont(f.deriveFont(f.getStyle() | Font. BOLD));
+	    nome.setBounds(185,0,445,25);
 	    nome.setHorizontalAlignment(SwingConstants.LEFT);
 	    nome.setLayout(new BorderLayout());
 	    nome.setBackground(this.getForeground());
-	    nome.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
+	    //nome.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.black));
 	    mainPanel.add(nome);
 	
 	    try{
-	    	num = ReadFile.countLines();
+	    	//num = ReadFile.countLines();
 	      arrayPanel.setBackground(Color.white);
 	      arrayPanel.setLayout(null);
 	      arrayPanel.setBounds(15,35,415,550);
@@ -77,10 +82,21 @@ public class FileChecker extends JFrame {
 	      // aggiungo al JPanel la label e il pulsante APRI
 	      for(Viewer viewer : ReadFile.getArray()){
 	    	  
+	    	  JLabel space = new JLabel();
+	    	  if (i!=0) 
+	    		  space.setBounds(40,(-5)+i,400,1);
+	    	  space.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+	    	  arrayPanel.add(space);
 	          JLabel label = new JLabel(viewer.label);
+	          JLabel numFiles = new JLabel(ReadFile.getNumFiles(viewer.openDirectory) + " file presenti");
+	          numFiles.setBounds(170,5+i,300,32);
+	          numFiles.setFocusable(false);
+	          Font f2 = label.getFont();
+	          label.setFont(f2.deriveFont(f2.getStyle() | Font. BOLD));
 	          label.setBounds(85,5+i,300,32);
 	          label.setFocusable(false);
 	          arrayPanel.add(label);
+	          arrayPanel.add(numFiles);
 	          
 	          JButton button = new JButton("APRI"); //viewer.openDirectory
 	          //button.setHorizontalAlignment(SwingConstants.CENTER);
@@ -91,6 +107,7 @@ public class FileChecker extends JFrame {
 	          arrayPanel.add(button);
 	          
 	          i = i + 50;
+	          //aggiungere avviso che stai sforando fuori dalla finestra
 	          mainPanel.add(arrayPanel);
 	      }
 	      
