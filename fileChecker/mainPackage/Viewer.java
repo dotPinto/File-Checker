@@ -7,33 +7,33 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 
 public class Viewer implements Iterable {
-    public String openDirectory;
-    public String label;
+	public String openDirectory;
+	public String label;
 
-    public Viewer(String label,String open){
-        this.openDirectory = open;
-        this.label = label;
-    };
+	public Viewer(String label,String open){
+		this.openDirectory = open;
+		this.label = label;
+	};
 
-    public String getLabel(){
-        return this.label;
-    } 
+	public String getLabel(){
+		return this.label;
+	} 
 
-    public String getOpenDirectory(){
-        return this.openDirectory;
-    }
+	public String getOpenDirectory(){
+		return this.openDirectory;
+	}
 
-    public void setLabel(String name){
-        label = name;
-    }
+	public void setLabel(String name){
+		label = name;
+	}
 
-    public void setOpenDirectory(String dir){
-        openDirectory = dir;
-    }
+	public void setOpenDirectory(String dir){
+		openDirectory = dir;
+	}
 
-    @Override
-    public Iterator iterator() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public Iterator iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
