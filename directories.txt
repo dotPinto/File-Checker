@@ -1,11 +1,6 @@
-Dev --- /Library/Developer
-Documenti --- C:\Users\Documents
-Pippo --- usr/bin/pippo
-Immagini --- C:\Users\Images
-Dev2 --- /Library/Developer
-Impiegato1 --- C:\Utenti\Impiegato1\Da Firmare
-Pinto --- /Users/dotpinto/Desktop/nuovacartella
-Bho --- /Users/dotpinto/Desktop/cartella senza nome
-Bho2 --- /Users/dotpinto/Desktop/cartella senza nome 2
-Pieno --- C:\Users\s-or-00011\Desktop\testpieno
-Vuoto --- C:\Users\s-or-00011\Desktop\testvuoto
+Ricordarsi che per la versione 0.1.6 ci possono essere
+massimo 11 directory PIENE visualizzabili contemporaneamente (per il momento).
+
+Formato della directory: 'Alias --- /dir/usr/doc'
+
+Developer --- /Library/Developer

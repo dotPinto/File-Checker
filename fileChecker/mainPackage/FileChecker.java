@@ -39,9 +39,8 @@ public class FileChecker extends JFrame {
 		this.setTitle(title);
 		arrayPanel = new JPanel();
 		mainPanel = new JPanel();
-		openIcon = new ImageIcon("icona.ico");
-		System.out.println("Codice Apertura icona: " + openIcon.getImageLoadStatus());
-
+		//openIcon = new ImageIcon("icona.ico");
+		//System.out.println("Codice Apertura icona: " + openIcon.getImageLoadStatus());
 
 		try {
 			UIManager.setLookAndFeel( new FlatLightLaf() );
@@ -62,7 +61,7 @@ public class FileChecker extends JFrame {
 		mainPanel.setBackground(Color.white);
 		mainPanel.setLayout(null);
 
-		if (ReadFile.getArray().size() > 0 && ReadFile.getArray().size() < 12) {
+		if (ReadFile.getArray().size() > 0) {
 
 			JPanel header = new JPanel();
 			header.setBounds(0,1,WIDTH,28);
@@ -86,7 +85,7 @@ public class FileChecker extends JFrame {
 				arrayPanel.setBackground(Color.white);
 				arrayPanel.setLayout(null);
 				arrayPanel.setBounds(5,35,415,550);
-				int i = 0;
+				int i = 0, num = 0;
 				// aggiungo al JPanel la label e il pulsante APRI
 				for(Viewer viewer : ReadFile.getArray()){
 
@@ -101,7 +100,7 @@ public class FileChecker extends JFrame {
 					numFiles.setFocusable(false);
 					Font f2 = label.getFont();
 					label.setFont(f2.deriveFont(f2.getStyle() | Font. BOLD));
-					label.setBounds(50,5+i,300,32);
+					label.setBounds(35,5+i,300,32);
 					label.setFocusable(false);
 					arrayPanel.add(label);
 					arrayPanel.add(numFiles);
@@ -109,52 +108,69 @@ public class FileChecker extends JFrame {
 					JButton button = new JButton("APRI"); //viewer.openDirectory
 					//button.setHorizontalAlignment(SwingConstants.CENTER);
 					button.addActionListener(new OpenLine(viewer.openDirectory));
-					button.setIcon(openIcon);
+					//button.setIcon(openIcon);
 					button.setBounds(300,5+i,100,32);
 					button.setFocusable(false);
 					arrayPanel.add(button);
 
 					i = i + 50;
+					num++;
 					//aggiungere avviso che stai sforando fuori dalla finestra
 					mainPanel.add(arrayPanel);
-					this.setSize(WIDTH, HEIGHT);
+					
 				}
-
+				
 				refreshButton = new JButton("AGGIORNA");
 				refreshButton.addActionListener(new RefreshWindow());
-				refreshButton.setBounds(165,620,120,30);
 				refreshButton.setVisible(true);
-				mainPanel.add(refreshButton);
-				mainPanel.validate();
+				this.add(refreshButton);
+				
+				switch (num) {
+					case 1:
+					case 2:
+					case 3: 
+						this.setSize(WIDTH, HEIGHT/2); 
+						mainPanel.setBounds(0,0, WIDTH, HEIGHT/2);
+						refreshButton.setBounds(165,HEIGHT/2-80,120,30);
+						break;
+					case 4: 
+					case 5:
+						this.setSize(WIDTH, HEIGHT-300); 
+						mainPanel.setBounds(0,0, WIDTH, HEIGHT-300);
+						refreshButton.setBounds(165,620-300,120,30);
+						break;
+					case 6:
+						this.setSize(WIDTH, HEIGHT-200); 
+						mainPanel.setBounds(0,0, WIDTH, HEIGHT-200);
+						refreshButton.setBounds(165,620-200,120,30);
+						break;
+					case 7:
+						this.setSize(WIDTH, HEIGHT-150); 
+						mainPanel.setBounds(0,0, WIDTH, HEIGHT-150);
+						refreshButton.setBounds(165,620-150,120,30);
+						break;
+					case 8:
+						this.setSize(WIDTH, HEIGHT-100); 
+						mainPanel.setBounds(0,0, WIDTH, HEIGHT-100);
+						refreshButton.setBounds(165,520,120,30);
+						break;
+					case 11:
+					case 12:
+					default:
+						this.setSize(WIDTH, HEIGHT); 
+						refreshButton.setBounds(165,620,120,30);
+						break;
+				}
+				
+				mainPanel.revalidate();
+				refreshButton.revalidate();
 
 			} catch (NullPointerException np){
 				np.getCause();
 				System.err.println(np + " array directories vuoto o errore di formattazione in directories.txt");
 			}
 
-		} else if(ReadFile.getArray().size() > 11) {
-
-			this.setSize(WIDTH, HEIGHT);
-			mainPanel.setLayout(null);
-			JTextField emp = new JTextField("Troppe directory impostate");
-			emp.setToolTipText("Aspettare le prossime versioni di File Checker");
-			emp.setAlignmentY(CENTER_ALIGNMENT);
-			emp.setAlignmentX(CENTER_ALIGNMENT);
-			emp.setBackground(Color.white);
-			emp.setBorder(BorderFactory.createEmptyBorder());
-			emp.setEditable(false);
-			emp.setFocusable(false);
-			emp.setBounds(125,100,250,35);
-			mainPanel.add(emp);
-
-			refreshButton = new JButton("AGGIORNA");
-			refreshButton.addActionListener(new RefreshWindow());
-			refreshButton.setFocusable(false);
-			refreshButton.setBounds(175,200,100,35);
-			mainPanel.add(refreshButton);
-			mainPanel.validate();
-		}
-		else {
+		} else {
 
 			this.setSize(WIDTH, HEIGHT/2);
 			mainPanel.setLayout(null);
@@ -177,6 +193,7 @@ public class FileChecker extends JFrame {
 			mainPanel.validate();
 		}
 
+		this.revalidate();
 		this.add(mainPanel);
 	}
 
