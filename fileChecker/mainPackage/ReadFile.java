@@ -1,5 +1,6 @@
 package mainPackage;
 
+import java.awt.BorderLayout;
 import java.awt.Window;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -77,12 +78,16 @@ public class ReadFile {
 			reader.close();
 
 		} catch (IOException e){
-			JLabel label = new JLabel("File \'directories.txt\' non trovato. \n controllare se si trova nella stessa cartella di questo eseguibile \n Mettere il proprio file in: \n" + System.getProperty("user.dir"));
+			frame.setLayout(new BorderLayout());
+			JLabel label = new JLabel("File \'directories.txt\' non trovato.");
+			JLabel label2 = new JLabel("controllare se si trova nella stessa cartella di questo eseguibile Mettere il proprio file in: " + System.getProperty("user.dir"));
 			frame.setType(Window.Type.POPUP);
-			frame.add(label);
+			frame.add(label,BorderLayout.NORTH);
+			frame.add(label2,BorderLayout.SOUTH);
 			frame.pack();
 			frame.setLocation(200, 200);
 			frame.setVisible(true);
+			frame.setAlwaysOnTop(true);
 		}
 
 	}

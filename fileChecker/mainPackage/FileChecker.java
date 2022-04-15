@@ -86,7 +86,6 @@ public class FileChecker extends JFrame {
 				arrayPanel.setBackground(Color.white);
 				arrayPanel.setLayout(null);
 				arrayPanel.setBounds(5,35,415,550);
-
 				int i = 0;
 				// aggiungo al JPanel la label e il pulsante APRI
 				for(Viewer viewer : ReadFile.getArray()){
@@ -118,6 +117,7 @@ public class FileChecker extends JFrame {
 					i = i + 50;
 					//aggiungere avviso che stai sforando fuori dalla finestra
 					mainPanel.add(arrayPanel);
+					this.setSize(WIDTH, HEIGHT);
 				}
 
 				refreshButton = new JButton("AGGIORNA");
@@ -134,6 +134,7 @@ public class FileChecker extends JFrame {
 
 		} else if(ReadFile.getArray().size() > 11) {
 
+			this.setSize(WIDTH, HEIGHT);
 			mainPanel.setLayout(null);
 			JTextField emp = new JTextField("Troppe directory impostate");
 			emp.setToolTipText("Aspettare le prossime versioni di File Checker");
@@ -143,13 +144,13 @@ public class FileChecker extends JFrame {
 			emp.setBorder(BorderFactory.createEmptyBorder());
 			emp.setEditable(false);
 			emp.setFocusable(false);
+			emp.setBounds(125,100,250,35);
 			mainPanel.add(emp);
 
 			refreshButton = new JButton("AGGIORNA");
 			refreshButton.addActionListener(new RefreshWindow());
 			refreshButton.setFocusable(false);
-			emp.setBounds(175,150,250,35);
-			refreshButton.setBounds(200,300,100,35);
+			refreshButton.setBounds(175,200,100,35);
 			mainPanel.add(refreshButton);
 			mainPanel.validate();
 		}
@@ -165,13 +166,13 @@ public class FileChecker extends JFrame {
 			emp.setBorder(BorderFactory.createEmptyBorder());
 			emp.setEditable(false);
 			emp.setFocusable(false);
-			emp.setBounds(125,50,250,35);
+			emp.setBounds(125,100,250,35);
 			mainPanel.add(emp);
 
 			refreshButton = new JButton("AGGIORNA");
 			refreshButton.addActionListener(new RefreshWindow());
 			refreshButton.setFocusable(false);
-			refreshButton.setBounds(175,150,100,35);
+			refreshButton.setBounds(175,200,100,35);
 			mainPanel.add(refreshButton);
 			mainPanel.validate();
 		}
@@ -207,14 +208,8 @@ public class FileChecker extends JFrame {
 
 	@SuppressWarnings("static-access")
 	public static void run(JFrame frame, int width, int height) { 
-		try {
-			ImageIcon openIcon = new ImageIcon("icona.ico");
-			frame.setIconImage(openIcon.getImage());
-		} catch (Exception e) {
-			e.getStackTrace();
-		}
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(width, height);
+		//frame.setSize(width, height);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);  
 		frame.setLayout(null);
