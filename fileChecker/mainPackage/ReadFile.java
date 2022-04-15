@@ -57,23 +57,24 @@ public class ReadFile {
 		JFrame frame = new JFrame("FileChecker");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		OpenDirectory op;
-		String patternString = "^[a-zA-Z0-9]* --- ";
+		String patternString = "^[a-zA-Z0-9 ]* --- ";
 		try {
 			op = new OpenDirectory();
 			File directories = new File(Paths.get(System.getProperty("user.dir")+"/directories.txt").toString());
 			Scanner reader = new Scanner(directories);
 			while(reader.hasNextLine()){
 				String data = reader.nextLine();
-				String temp = data.replaceFirst(patternString,"");
-				if (Files.exists(Paths.get(temp),LinkOption.NOFOLLOW_LINKS) && !(op.isEmpty(Paths.get(temp)))){
-					try{
-						String name[] = data.split(" --- ");
-						setArray(new Viewer(name[0],name[1]));
-					} catch (ArrayIndexOutOfBoundsException e){
-						System.err.println(e + " - Nome della cartella o della directory non presente o non trovato");
+				if (!data.startsWith("//") && (data.length()>0)) {
+					String temp = data.replaceFirst(patternString,"");
+					if (Files.exists(Paths.get(temp),LinkOption.NOFOLLOW_LINKS) && !(op.isEmpty(Paths.get(temp)))){
+						try{
+							String name[] = data.split(" --- ");
+							setArray(new Viewer(name[0],name[1]));
+						} catch (ArrayIndexOutOfBoundsException e){
+							System.err.println(e + " - Nome della cartella o della directory non presente o non trovato");
+						}
 					}
 				}
-
 			}
 			reader.close();
 

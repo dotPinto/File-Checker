@@ -1,1 +1,20 @@
-Developer --- /Library/Developer
+//Ricordarsi che per la versione 0.1.6 ci possono essere
+//massimo 11 directory PIENE visualizzabili contemporaneamente (per il momento).
+//
+//Esempio formato della directory: 'Alias --- /dir/usr/doc'
+//
+//doppio slash per scrivere dei commenti che verranno ignorati dal programma.
+//test
+Cartella 0 --- /Library/Developer
+Cartella 1 --- /Library/Developer
+Cartella 2 --- /Library/Developer
+Cartella 3 --- /Library/Developer
+//test2 --- /Library/Developer
+Cartella 4 --- /Library/Developer
+Cartella 5 --- /Library/Developer
+//Cartella 6 --- /Library/Developer
+Cartella 7 --- /Library/Developer
+Cartella 8 --- /Library/Developer
+Cartella 9 --- /Library/Developer
+//Cartella 10 --- /Library/Developer
+ Cartella    11 --- /Library/Developer
